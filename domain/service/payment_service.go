@@ -5,18 +5,23 @@ import (
 	"zota_test/domain/repository"
 )
 
-type PaymentService struct {
+type PaymentServiceInterface interface {
+	MakeDeposit(request model.DepositRequest) (*model.DepositResponse, error)
+	CheckStatus(request model.StatusRequest) (*model.StatusResponse, error)
+}
+
+type paymentService struct {
 	repo repository.PaymentRepositoryInterface
 }
 
-func NewPaymentService(repo repository.PaymentRepositoryInterface) *PaymentService {
-	return &PaymentService{repo: repo}
+func NewPaymentService(repo repository.PaymentRepositoryInterface) PaymentServiceInterface {
+	return &paymentService{repo: repo}
 }
 
-func (s *PaymentService) MakeDeposit(request model.DepositRequest) (*model.DepositResponse, error) {
+func (s *paymentService) MakeDeposit(request model.DepositRequest) (*model.DepositResponse, error) {
 	return s.repo.MakeDeposit(request)
 }
 
-func (s *PaymentService) CheckStatus(request model.StatusRequest) (*model.StatusResponse, error) {
+func (s *paymentService) CheckStatus(request model.StatusRequest) (*model.StatusResponse, error) {
 	return s.repo.CheckStatus(request)
 }
