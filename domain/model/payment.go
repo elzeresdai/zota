@@ -5,7 +5,7 @@ type DepositRequest struct {
 	MerchantOrderDesc   string `json:"merchantOrderDesc"`
 	OrderAmount         string `json:"orderAmount"`
 	OrderCurrency       string `json:"orderCurrency"`
-	CustomerEmail       string `json:"customerEmail"`
+	CustomerEmail       string `json:"customerEmail,omitempty"`
 	CustomerFirstName   string `json:"customerFirstName"`
 	CustomerLastName    string `json:"customerLastName"`
 	CustomerAddress     string `json:"customerAddress"`

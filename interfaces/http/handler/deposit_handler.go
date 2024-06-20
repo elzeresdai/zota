@@ -2,17 +2,20 @@ package handler
 
 import (
 	"encoding/json"
+	"math/rand"
 	"net/http"
+	"strconv"
+	"time"
 
 	"zota_test/domain/model"
 	"zota_test/domain/service"
 )
 
 type DepositHandler struct {
-	paymentService *service.PaymentService
+	paymentService service.PaymentServiceInterface
 }
 
-func NewDepositHandler(paymentService *service.PaymentService) *DepositHandler {
+func NewDepositHandler(paymentService service.PaymentServiceInterface) *DepositHandler {
 	return &DepositHandler{paymentService: paymentService}
 }
 
@@ -20,7 +23,7 @@ func (h *DepositHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	amount := r.URL.Query().Get("amount")
 	currency := r.URL.Query().Get("currency")
 	request := model.DepositRequest{
-		MerchantOrderID:     "unique-order-id",
+		MerchantOrderID:     generateUniqueOrderID(),
 		MerchantOrderDesc:   "Test Order Description",
 		OrderAmount:         amount,
 		OrderCurrency:       currency,
@@ -42,5 +45,13 @@ func (h *DepositHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(resp)
+
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func generateUniqueOrderID() string {
+	rand.Seed(time.Now().UnixNano())
+	return strconv.FormatInt(rand.Int63(), 10)
 }

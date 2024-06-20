@@ -9,10 +9,10 @@ import (
 )
 
 type StatusHandler struct {
-	paymentService *service.PaymentService
+	paymentService service.PaymentServiceInterface
 }
 
-func NewStatusHandler(paymentService *service.PaymentService) *StatusHandler {
+func NewStatusHandler(paymentService service.PaymentServiceInterface) *StatusHandler {
 	return &StatusHandler{paymentService: paymentService}
 }
 
@@ -26,5 +26,7 @@ func (h *StatusHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	json.NewEncoder(w).Encode(resp)
+	if err := json.NewEncoder(w).Encode(resp); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
