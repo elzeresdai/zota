@@ -7,9 +7,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
-	"zota_test/domain/model"
-
 	"strings"
+
+	"zota_test/domain/model"
 )
 
 type ZotaAdapter struct{}
