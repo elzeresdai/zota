@@ -1,0 +1,49 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.coverprofile
+
+# Temporary files
+*.log
+*.tmp
+
+# Go specific
+*.env
+
+# Dependency directories (remove the comment if you uncomment the go get command in .travis.yml)
+vendor/
+Godeps/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# Editor-specific files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# Node specific (if applicable)
+node_modules/
+
+# Ignore the /app directory in the Docker container
+/app
+
+# Build output
+/build/
