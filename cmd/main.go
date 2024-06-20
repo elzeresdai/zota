@@ -10,7 +10,7 @@ func main() {
 	// Load environment variables from .env file
 	err := godotenv.Load()
 	if err != nil {
-		log.Println("Error loading .env file, using default port.")
+		log.Println("Error loading .env file")
 	}
 
 }
