@@ -6,10 +6,10 @@ import (
 )
 
 type PaymentService struct {
-	repo repository.PaymentRepository
+	repo repository.PaymentRepositoryInterface
 }
 
-func NewPaymentService(repo repository.PaymentRepository) *PaymentService {
+func NewPaymentService(repo repository.PaymentRepositoryInterface) *PaymentService {
 	return &PaymentService{repo: repo}
 }
 
